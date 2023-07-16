@@ -12,23 +12,23 @@ public class City {
     private String cityName;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<EmployeeDao> employees;
+    private List<Employee> employees;
     public City() {
     }
 
     public City(int cityId) {
         this.cityId = cityId;
     }
-    public City( String cityName, List<EmployeeDao> employees) {
+    public City( String cityName, List<Employee> employees) {
         this.cityName = cityName;
         this.employees = employees;
     }
 
-    public List<EmployeeDao> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<EmployeeDao> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 

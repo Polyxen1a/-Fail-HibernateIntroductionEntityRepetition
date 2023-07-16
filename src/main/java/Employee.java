@@ -1,9 +1,11 @@
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table (name = "employee")
 
 
-public class EmployeeDao {
+public abstract class Employee {
 
     @Id
     @Column(name = "id")
@@ -21,23 +23,23 @@ public class EmployeeDao {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public EmployeeDao() {
+    public Employee() {
     }
-    public EmployeeDao(String firstName, String lastName, String gender, int age, City city) {
+    public Employee(String firstName, String lastName, String gender, int age, City city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
         this.city = city;
     }
-    public EmployeeDao(String firstName, String lastName, String gender, int age) {
+    public Employee(String firstName, String lastName, String gender, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
     }
 
-    public EmployeeDao(int id, String firstName, String lastName, String gender, int age, City city) {
+    public Employee(int id, String firstName, String lastName, String gender, int age, City city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -94,4 +96,14 @@ public class EmployeeDao {
                 ", city=" + city +
                 '}';
     }
+
+    public abstract void createEmployee(Employee employee);
+
+    public abstract Employee getEmployeeById(int id);
+
+    public abstract List<Employee> getAllEmployees();
+
+    public abstract void updateEmployeeById(Employee employee);
+
+    public abstract void deleteEmployeeById(Employee employee);
 }

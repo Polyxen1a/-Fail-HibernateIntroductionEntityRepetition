@@ -3,14 +3,14 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CityDaoImpl implements CityDao {
+public class CityDaoImpl extends CityDao {
     @Override
     public void createCity(City city) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
 
         entityManager.getTransaction().begin();
         entityManager.persist(city);
-        List<EmployeeDao> employees = city.getEmployees()
+        List<Employee> employees = city.getEmployees()
                 .stream()
                 .peek(employee -> employee.setCity(city))
                 .peek(entityManager::persist)
@@ -50,14 +50,14 @@ public class CityDaoImpl implements CityDao {
     }
 
     @Override
-    public void updateCityById(int cityId, EmployeeDao employee ) {
+    public void updateCityById(int cityId, Employee employee ) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
 
         entityManager.getTransaction().begin();
 
         City city = entityManager.find(City.class, cityId);
-        List<EmployeeDao> employees = city.getEmployees();
-        EmployeeDao employeeNew = employees.stream()
+        List<Employee> employees = city.getEmployees();
+        Employee employeeNew = employees.stream()
                 .filter(s-> s.getId() == employee.getId())
                 .findFirst().get();
         employeeNew.setFirstName(employee.getFirstName());
