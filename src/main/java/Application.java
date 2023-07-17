@@ -2,8 +2,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) {
-    Employee employee = new Employee() {
+    public void main(String[] args, Scanner scanner, CityDao cityDao, Object employeeId) {
+    Employee employee = new EmployeeDaoImpl() {
+        CityDao cityDao = new CityDaoImpl();
+        Scanner scanner = new Scanner(System.in);
         @Override
         public void createEmployee(Employee employee) {
 
@@ -29,8 +31,7 @@ public class Application {
 
         }
     };
-    CityDao citydao = new CityDaoImpl();
-    Scanner scanner = new Scanner(System.in);
+
     List<Employee> employees = List.of(new Employee("Надежда", "Крылова", "жен", 30) {
                                            @Override
                                            public void createEmployee(Employee employee) {
@@ -84,7 +85,7 @@ public class Application {
                 }
             });
     City city = new City( "Москва", employees);
-        citydao.createCity(city);
+        CityDao.createCity(city);
         System.out.println("Введите id города для изменения в базе");
     int id = scanner.nextInt();
     System.out.println("Какого сотрудника будем изменять? Введите id:");
@@ -92,17 +93,17 @@ public class Application {
     Employee employeeCity = employee.getEmployeeById(idEmployee);
     Employee employee1 = enterInformationWithScanner();
         employee1.setId(employeeCity.getId());
-        citydao.updateCityById(id, employee1);
+        cityDao.updateCityById(id, employee1, employeeId);
         System.out.println("Введите id города для удаления в базе");
     id = scanner.nextInt();
-    City city11 = citydao.getCityById(id);
-        citydao.deleteCityById(city11);
+    City city11 = CityDao.getCityById(id);
+        cityDao.deleteCityById(city11);
 
         System.out.println("Все сотрудники");
     List<Employee> employees1 = employee.getAllEmployees();
         employees1.stream()
                 .forEach(System.out::println);
-    List<City> cities = citydao.getAllCities();
+    List<City> cities = CityDao.getAllCities();
         cities.stream()
                 .forEach(System.out::println);
 

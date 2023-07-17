@@ -4,8 +4,7 @@ import java.util.List;
 @Entity
 @Table (name = "employee")
 
-
-public abstract class Employee {
+public class Employee {
 
     @Id
     @Column(name = "id")
@@ -21,6 +20,7 @@ public abstract class Employee {
     private int age;
 
     @JoinColumn(name = "city_id")
+    @ManyToOne
     private City city;
 
     public Employee() {
@@ -97,13 +97,23 @@ public abstract class Employee {
                 '}';
     }
 
-    public abstract void createEmployee(Employee employee);
+    public void createEmployee(Employee employee) {
 
-    public abstract Employee getEmployeeById(int id);
+    }
 
-    public abstract List<Employee> getAllEmployees();
+    public Employee getEmployeeById(int id) {
+        return null;
+    }
 
-    public abstract void updateEmployeeById(Employee employee);
+    public List<Employee> getAllEmployees() {
+        return null;
+    }
 
-    public abstract void deleteEmployeeById(Employee employee);
+    public void updateEmployeeById(Employee employee) {
+
+    }
+
+    public void deleteEmployeeById(Employee employee) {
+
+    }
 }

@@ -1,9 +1,15 @@
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CityDaoImpl extends CityDao {
+public class CityDaoImpl implements CityDao {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit-name");
+    EntityManager em = emf.createEntityManager();
+    int employeeId = 1;
+
     @Override
     public void createCity(City city) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
@@ -50,20 +56,17 @@ public class CityDaoImpl extends CityDao {
     }
 
     @Override
-    public void updateCityById(int cityId, Employee employee ) {
+    public void updateCityById(int cityId, Employee employee, Object employeeId) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
 
         entityManager.getTransaction().begin();
 
         City city = entityManager.find(City.class, cityId);
-        List<Employee> employees = city.getEmployees();
-        Employee employeeNew = employees.stream()
-                .filter(s-> s.getId() == employee.getId())
-                .findFirst().get();
-        employeeNew.setFirstName(employee.getFirstName());
-        employeeNew.setLastName(employee.getLastName());
-        employeeNew.setAge(employee.getAge());
-        employeeNew.setGender(employee.getGender());
+        Employee employee = em.find(Employee.class, employeeId);
+        employee.setFirstName(employee.getFirstName());
+        employee.setLastName(employee.getLastName());
+        employee.setAge(employee.getAge());
+        employee.setGender(employee.getGender());
         entityManager.merge(city);
 
         entityManager.getTransaction().commit();

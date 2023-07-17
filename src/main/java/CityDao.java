@@ -1,23 +1,10 @@
 import java.util.List;
 
-public class CityDao {
-    void createCity(City city) {
+public interface CityDao {
+    void createCity(City city);
 
-    }
-
-    City getCityById(int id) {
-        return null;
-    }
-
-    List<City> getAllCities() {
-        return null;
-    }
-
-    void updateCityById(int cityId, Employee employee) {
-
-    }
-
-    void deleteCityById(City city) {
-
-    }
+    City getCityById(int id);
+    List<City> getAllCities();
+    void updateCityById(int cityId, Employee employee, Object employeeId);
+    void deleteCityById(City city);
 }
