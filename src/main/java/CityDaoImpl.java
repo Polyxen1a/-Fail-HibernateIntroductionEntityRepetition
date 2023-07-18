@@ -62,7 +62,7 @@ public class CityDaoImpl implements CityDao {
         entityManager.getTransaction().begin();
 
         City city = entityManager.find(City.class, cityId);
-        Employee employee = em.find(Employee.class, employeeId);
+        employee = em.find(Employee.class, employeeId);
         employee.setFirstName(employee.getFirstName());
         employee.setLastName(employee.getLastName());
         employee.setAge(employee.getAge());
